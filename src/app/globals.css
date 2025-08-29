@@ -172,4 +172,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .social-links {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full bg-light-100 hover:bg-light-300 dark:bg-dark-900 dark:hover:bg-dark-700 transition-colors;
+  }
 }
