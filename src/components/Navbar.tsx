@@ -32,10 +32,10 @@ function Navbar() {
 
         <div className="hidden items-center gap-6 md:flex">
           <button className="text-body text-dark-900 transition-colors hover:text-dark-700">
-            Search
+            Buscar
           </button>
           <button className="text-body text-dark-900 transition-colors hover:text-dark-700">
-            My Cart (2)
+            Mi Carrito (2)
           </button>
         </div>
 

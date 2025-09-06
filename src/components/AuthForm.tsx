@@ -23,6 +23,7 @@ function AuthForm({ mode, onSubmit }: Props) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name_user: "",
       email: "",
       password: "",
     },
@@ -30,10 +31,12 @@ function AuthForm({ mode, onSubmit }: Props) {
 
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
+  const handleSubmit = async (data: FormValues) => {
+    // Convert FormValues to FormData
+    const formData = new FormData();
+    formData.append("name_user", data.name_user);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
 
     try {
       const result = await onSubmit(formData);
@@ -70,7 +73,7 @@ function AuthForm({ mode, onSubmit }: Props) {
       <Form {...form}>
         <form
           className="space-y-4"
-          onSubmit={handleSubmit}
+          onSubmit={form.handleSubmit(handleSubmit)}
         >
           {mode === "sign-up" && (
             <FormField
@@ -78,9 +81,9 @@ function AuthForm({ mode, onSubmit }: Props) {
               name="name_user"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nombre</FormLabel>
+                  <FormLabel htmlFor='name_user'>Nombre</FormLabel>
                   <FormControl>
-                    <Input id='name' type='text' required autoComplete="name" placeholder="Ingresa tu nombre" {...field} />
+                    <Input id='name_user' type='text' autoComplete="name_user" placeholder="Ingresa tu nombre" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -93,9 +96,9 @@ function AuthForm({ mode, onSubmit }: Props) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Correo electrónico</FormLabel>
+                <FormLabel htmlFor='email'>Correo electrónico</FormLabel>
                 <FormControl>
-                  <Input id='email' type='email' required autoComplete="email" placeholder="johndoe@gmail.com" {...field} />
+                  <Input id='email' type='email' autoComplete="email" placeholder="johndoe@gmail.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -107,8 +110,8 @@ function AuthForm({ mode, onSubmit }: Props) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Contraseña</FormLabel>
-                <FormControl>
+                <FormLabel htmlFor='password'>Contraseña</FormLabel>
+                <FormControl className='relative'>
                   <div className="relative">
                     <Input
                       id='password'
@@ -116,7 +119,7 @@ function AuthForm({ mode, onSubmit }: Props) {
                       className="pr-10"
                       placeholder="Ingrese su contraseña"
                       minLength={6}
-                      required
+                      maxLength={20}
                       {...field}
                     />
                     <Button

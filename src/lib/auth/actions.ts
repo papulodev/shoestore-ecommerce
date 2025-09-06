@@ -4,7 +4,6 @@ import { guests } from "@/db/schema/guest";
 import { randomUUID } from "crypto";
 import { and, eq, lt } from "drizzle-orm";
 import { cookies, headers } from "next/headers";
-import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { formSchema } from "../form-schema/schema";
 
