@@ -1,7 +1,12 @@
 import Card from '@/components/Card';
 import { products } from '@/constants/products';
+import { getCurrentUser } from '@/lib/auth/actions';
 
-function Home() {
+async function Home() {
+
+  const user = await getCurrentUser();
+  console.log({ user });
+
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <section aria-labelledby="latest" className="pb-12">
