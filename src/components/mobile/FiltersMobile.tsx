@@ -23,7 +23,7 @@ function FiltersMobile({ activeCounts }: { activeCounts: ActiveCounts }) {
       <SheetTrigger asChild className='md:hidden w-28'>
         <Button variant="outline" className='cursor-pointer'>Filtros</Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent side="left">
         <SheetHeader>
           <SheetTitle className='mb-2 flex items-center justify-between'>
             Filtros

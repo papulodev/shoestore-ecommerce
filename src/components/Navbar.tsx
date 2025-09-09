@@ -1,12 +1,11 @@
 'use client';
-import { useState } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { navLinks } from '@/constants/navlinks';
+import MobileMenu from './mobile/MobileMenu';
+import { Button } from './ui/button';
 
 function Navbar() {
-  const [open, setOpen] = useState<boolean>(false);
-
   return (
     <header className="sticky top-0 z-50 bg-light-100">
       <nav
@@ -22,7 +21,7 @@ function Navbar() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="text-body text-dark-900 transition-colors hover:text-dark-700"
+                className="text-body font-medium text-dark-900 transition-colors hover:text-dark-700"
               >
                 {l.label}
               </Link>
@@ -30,51 +29,17 @@ function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-6 md:flex">
-          <button className="text-body text-dark-900 transition-colors hover:text-dark-700">
+        <div className="items-center gap-6 md:flex">
+          <Button variant="ghost" className="text-body font-medium text-dark-900">
             Buscar
-          </button>
-          <button className="text-body text-dark-900 transition-colors hover:text-dark-700">
+          </Button>
+          <Button variant="ghost" className="text-body font-medium text-dark-900">
             Mi Carrito (2)
-          </button>
+          </Button>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 md:hidden"
-          aria-controls="mobile-menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="sr-only">Toggle navigation</span>
-          <span className="mb-1 block h-0.5 w-6 bg-dark-900"></span>
-          <span className="mb-1 block h-0.5 w-6 bg-dark-900"></span>
-          <span className="block h-0.5 w-6 bg-dark-900"></span>
-        </button>
+        <MobileMenu />
       </nav>
-
-      <div
-        id="mobile-menu"
-        className={`border-t border-light-300 md:hidden ${open ? "block" : "hidden"}`}
-      >
-        <ul className="space-y-2 px-4 py-3">
-          {navLinks.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className="block py-2 text-body text-dark-900 hover:text-dark-700"
-                onClick={() => setOpen(false)}
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-          <li className="flex items-center justify-between pt-2">
-            <button className="text-body">Buscar</button>
-            <button className="text-body">Mi Carrito (2)</button>
-          </li>
-        </ul>
-      </div>
     </header>
   );
 }
